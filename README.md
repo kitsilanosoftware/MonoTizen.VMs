@@ -20,6 +20,7 @@ terms (MIT?) are to be decided by Bob Summerwill and Damien Diederen
 | `thaz` | `i586`   | `bzImage.x86`      | `emulimg-2.2.x86`            |
 | `thuz` | `i586`   | `bzImage.x86`      | `emulimg-2.2.x86`            |
 | `thoz` | `armv7l` | `3.2.0-4-vexpress` | `tizen-2.2_20130719.3_RD-PQ` |
+| `tinz` | `armv7l` | `3.2.0-4-vexpress` | `tizen-2.2_20130719.3_RD-PQ` |
 
 ## Hosts
 
