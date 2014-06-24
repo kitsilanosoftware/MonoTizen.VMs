@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # Copyright 2014 Kitsilano Software Inc.
 #
 # This file is part of MonoTizen.
@@ -17,23 +17,18 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
+function guestfish_fsck {
+    local image="$1"; shift
+    local device="$1"; shift
 
-BASE="$(dirname "$0")"
+    guestfish <<EOF
+add $image
+run
+e2fsck $device correct:true
+EOF
+}
 
-cd "$BASE"
-
-PROTO="$1"; shift
-VM_NAME="$1"; shift
-
-if ! test -d "protos/$PROTO"; then
-    echo "Unknown prototype $PROTO." >&2
-    false
-fi
-
-if test -d "data/vms/$VM_NAME"; then
-    echo "VM $VM_NAME already exists." >&2
-    false
-fi
-
-exec make vm "NAME=$VM_NAME" "PROTO=$PROTO" "$@"
+# Guestfish aborts and returns a failure despite correct:true; we just
+# ignore that and run one instance per partition (we'll fail later if
+# repair did not succeed).
+guestfish_fsck "$@" || true

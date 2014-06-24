@@ -1,5 +1,5 @@
 #!/bin/bash
-
+#
 # Copyright 2014 Kitsilano Software Inc.
 #
 # This file is part of MonoTizen.
@@ -17,23 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
+function apply_patches {
+    local work_dir="$1"; shift
 
-BASE="$(dirname "$0")"
+    for patch in "$@"; do
+        (cd "$work_dir" && patch -p0) < "$patch"
+    done
+}
 
-cd "$BASE"
-
-PROTO="$1"; shift
-VM_NAME="$1"; shift
-
-if ! test -d "protos/$PROTO"; then
-    echo "Unknown prototype $PROTO." >&2
-    false
-fi
-
-if test -d "data/vms/$VM_NAME"; then
-    echo "VM $VM_NAME already exists." >&2
-    false
-fi
-
-exec make vm "NAME=$VM_NAME" "PROTO=$PROTO" "$@"
+apply_patches "$@"

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+BASE="$(dirname "$0")"
+VEXPRESS_DIR="$BASE/../../downloads/3.2.0-4-vexpress"
+SSH_FWD_PORT='@@SSH_FWD_PORT@@'
+INIT=/sbin/init
+
+ssh_fwd_args=''
+if test -n "$SSH_FWD_PORT"; then
+    ssh_fwd_args="-net user,hostfwd=tcp::${SSH_FWD_PORT}-:22"
+fi
+
+exec qemu-system-arm -M vexpress-a9 -m 1G                       \
+    -kernel "$VEXPRESS_DIR/vmlinuz-3.2.0-4-vexpress"            \
+    -initrd "$VEXPRESS_DIR/initrd.img-3.2.0-4-vexpress"         \
+    -drive "file=$BASE/disk.qcow2,if=sd,cache=writeback"        \
+    -net nic $ssh_fwd_args                                      \
+    -append "root=/dev/mmcblk0p1 rw init=$INIT"

@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Copyright 2014 Kitsilano Software Inc.
 #
 # This file is part of MonoTizen.
@@ -17,23 +15,23 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
+TIZEN_VM__3_2_0_4_vexpress_FILES =		\
+	vmlinuz-3.2.0-4-vexpress		\
+	initrd.img-3.2.0-4-vexpress
 
-BASE="$(dirname "$0")"
+TIZEN_VM__3_2_0_4_vexpress_BASE_URL =			\
+	http://people.debian.org/~aurel32/qemu/armhf
 
-cd "$BASE"
-
-PROTO="$1"; shift
-VM_NAME="$1"; shift
-
-if ! test -d "protos/$PROTO"; then
-    echo "Unknown prototype $PROTO." >&2
-    false
-fi
-
-if test -d "data/vms/$VM_NAME"; then
-    echo "VM $VM_NAME already exists." >&2
-    false
-fi
-
-exec make vm "NAME=$VM_NAME" "PROTO=$PROTO" "$@"
+$(DOWNLOADS)/3.2.0-4-vexpress/stamp:				\
+		kernels/3.2.0-4-vexpress/downloads.md5sums
+	@mkdir -p $(dir $@) $(TMP)/3.2.0-4-vexpress
+	for F in $(TIZEN_VM__3_2_0_4_vexpress_FILES); do		\
+		wget -O $(TMP)/3.2.0-4-vexpress/$$F			\
+			$(TIZEN_VM__3_2_0_4_vexpress_BASE_URL)/$$F;	\
+	done
+	cd $(TMP)/3.2.0-4-vexpress && md5sum -c --strict		\
+		 $(PWD)/kernels/3.2.0-4-vexpress/downloads.md5sums
+	for F in $(TIZEN_VM__3_2_0_4_vexpress_FILES); do	\
+		mv $(TMP)/3.2.0-4-vexpress/$$F $(dir $@);	\
+	done
+	touch $@
