@@ -27,7 +27,8 @@ proto=
 
 if test "$1" = '--proto' -a -n "$2"; then
     proto="$2"
-    source "$BASE/protos/$proto/build-vm.env"
+    MONO_VM_PROTO_DIR="$BASE/protos/$proto"
+    source "$MONO_VM_PROTO_DIR/build-vm.env"
     shift 2
 fi
 
