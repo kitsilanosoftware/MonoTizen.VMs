@@ -84,10 +84,11 @@ $(TMP)/$(PROTO)/patched.tar: $(TMP)/$(PROTO)/patched.stamp
 	tar cvf $@.tmp -C $(TMP)/$(PROTO)/patchwork .
 	@mv $@.tmp $@
 
-$(DATA)/images/$(PROTO)/base.qcow2:			\
-		$(DATA)/images/$(PROTO)/pristine.qcow2	\
-		$(TMP)/$(PROTO)/patched.tar		\
-		tools/force-fsck-part.sh		\
+$(DATA)/images/$(PROTO)/base.qcow2:				\
+		$(DATA)/images/$(PROTO)/pristine.qcow2		\
+		$(TMP)/$(PROTO)/patched.tar			\
+		$(TIZEN_VM__3_2_0_4_vexpress_MODULES_TAR)	\
+		tools/force-fsck-part.sh			\
 		protos/$(PROTO)/finalize.sh
 	@mkdir -p $(dir $@)
 	rm -f $@
@@ -98,6 +99,8 @@ $(DATA)/images/$(PROTO)/base.qcow2:			\
 	$(BASH) tools/force-fsck-part.sh $@.tmp /dev/sda1
 	$(BASH) tools/force-fsck-part.sh $@.tmp /dev/sda2
 	$(BASH) tools/force-fsck-part.sh $@.tmp /dev/sda3
-	$(BASH) protos/$(PROTO)/finalize.sh $@.tmp $(TMP)/$(PROTO)/patched.tar
+	$(BASH) protos/$(PROTO)/finalize.sh $@.tmp		\
+		$(TMP)/$(PROTO)/patched.tar			\
+		$(TIZEN_VM__3_2_0_4_vexpress_MODULES_TAR)
 	chmod a-w $@.tmp
 	@mv $@.tmp $@

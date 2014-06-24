@@ -20,6 +20,7 @@
 function guestfish_finalize {
     local image="$1"; shift
     local patched_tar="$1"; shift
+    local modules_tar="$1"; shift
 
     guestfish <<EOF
 # Target image
@@ -33,6 +34,7 @@ resize2fs /dev/sda3
 # Mount root
 mount /dev/sda1 /
 tar-in $patched_tar /
+tar-in $modules_tar /lib/modules
 # TODO: Migrate to patches of sort.
 rm /etc/nologin
 rm /etc/.pwd.lock
