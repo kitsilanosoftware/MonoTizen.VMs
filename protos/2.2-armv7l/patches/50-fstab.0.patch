@@ -1,0 +1,17 @@
+--- etc.orig/fstab	2013-03-15 17:02:59.000000000 +0100
++++ etc/fstab	2014-06-24 15:03:47.319332337 +0200
+@@ -5,11 +5,6 @@
+ /opt/var	/var        	bind	bind		0 0
+ none		/sys		sysfs   defaults	0 0
+ 
+-# For new partition - 2012/08
+-/dev/mmcblk0p1	/csa	ext4	defaults	0 2
+-/dev/mmcblk0p2	/boot	ext4	defaults	0 2
+-/dev/mmcblk0p4	/mnt/csc ext4	defaults,noauto	0 2
+-/dev/mmcblk0p5	/	ext4	defaults	0 1
+-/dev/mmcblk0p6	/opt	ext4	defaults	0 2
+-/dev/mmcblk0p7	/opt/usr ext4	defaults	0 2
+-/boot/modules.img	/lib/modules	ext4	loop	0 0
++/dev/mmcblk0p1 /        ext4    defaults        0 1
++/dev/mmcblk0p3 /opt     ext4    defaults        0 1
++/dev/mmcblk0p2 /opt/usr ext4    defaults        0 1
