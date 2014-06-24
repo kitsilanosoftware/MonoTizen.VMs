@@ -1,0 +1,115 @@
+Nur in systemd.orig/system/basic.target.wants: smack-default-labeling.service.
+Nur in systemd.orig/system/basic.target.wants: smack-device-labeling.service.
+Nur in systemd.orig/system/basic.target.wants: smack.service.
+Nur in systemd/system: basic.target.wants.attic.
+diff -ru --no-dereference systemd.orig/system/bootmode-graphical.service systemd/system/bootmode-graphical.service
+--- systemd.orig/system/bootmode-graphical.service	2013-07-15 16:52:34.000000000 +0200
++++ systemd/system/bootmode-graphical.service	2014-06-18 12:06:04.000000000 +0200
+@@ -4,5 +4,6 @@
+ 
+ [Service]
+ Type=oneshot
+-ExecStart=/bin/systemctl isolate graphical.target
++#ExecStart=/bin/systemctl isolate graphical.target
++ExecStart=/bin/systemctl isolate multi-user.target
+ 
+Nur in systemd.orig/system/local-fs.target.wants: boot.mount.
+Nur in systemd.orig/system/local-fs.target.wants: csa.mount.
+Nur in systemd.orig/system/local-fs.target.wants: resize2fs-root.service.
+Nur in systemd.orig/system/local-fs.target.wants: smack.mount.
+diff -ru --no-dereference systemd.orig/system/-.mount systemd/system/-.mount
+--- systemd.orig/system/-.mount	2013-07-17 08:04:11.000000000 +0200
++++ systemd/system/-.mount	2014-06-18 11:56:31.000000000 +0200
+@@ -6,11 +6,12 @@
+ DefaultDependencies=no
+ Before=local-fs.target
+ Requires=fsck-root.service
+-After=local-fs-pre.target fsck-root.service resize2fs-root.service
+-Wants=resize2fs-root.service
++#After=local-fs-pre.target fsck-root.service resize2fs-root.service
++After=local-fs-pre.target fsck-root.service
++#Wants=resize2fs-root.service
+ 
+ [Mount]
+-What=/dev/mmcblk0p5
++What=/dev/mmcblk0p1
+ Where=/
+ Type=ext4
+ Options=defaults
+Nur in systemd.orig/system/multi-user.target.wants: alarm-server.service.
+Nur in systemd.orig/system/multi-user.target.wants: avsystem.service.
+Nur in systemd.orig/system/multi-user.target.wants: bluetooth-address.service.
+Nur in systemd.orig/system/multi-user.target.wants: clipboard.service.
+Nur in systemd.orig/system/multi-user.target.wants: dlog-main.service.
+Nur in systemd.orig/system/multi-user.target.wants: dlog-radio.service.
+Nur in systemd.orig/system/multi-user.target.wants: gps-manager.service.
+Nur in systemd.orig/system/multi-user.target.wants: gstreamer.service.
+Nur in systemd.orig/system/multi-user.target.wants: media-server.service.
+Nur in systemd.orig/system/multi-user.target.wants: msg-service.service.
+Nur in systemd.orig/system/multi-user.target.wants: nfc-manager.service.
+Nur in systemd.orig/system/multi-user.target.wants: oma-dm-agent.service.
+Nur in systemd.orig/system/multi-user.target.wants: osp-tmpdir-setup.service.
+Nur in systemd.orig/system/multi-user.target.wants: pulseaudio.service.
+Nur in systemd.orig/system/multi-user.target.wants: secure-storage.service.
+Nur in systemd.orig/system/multi-user.target.wants: security-server.service.
+Nur in systemd.orig/system/multi-user.target.wants: sensor-framework.service.
+Nur in systemd.orig/system/multi-user.target.wants: smack-default-labeling.service.
+Nur in systemd.orig/system/multi-user.target.wants: smack-early-rules.service.
+Nur in systemd.orig/system/multi-user.target.wants: smack-late-rules.service.
+Nur in systemd.orig/system/multi-user.target.wants: sound-server.path.
+Nur in systemd.orig/system/multi-user.target.wants: systemd-ask-password-wall.path.
+Nur in systemd.orig/system/multi-user.target.wants: telephony.service.
+Nur in systemd.orig/system/multi-user.target.wants: wrt-security-daemon.service.
+Nur in systemd/system: multi-user.target.wants.attic.
+diff -ru --no-dereference systemd.orig/system/opt.mount systemd/system/opt.mount
+--- systemd.orig/system/opt.mount	2013-07-17 08:04:11.000000000 +0200
++++ systemd/system/opt.mount	2014-06-18 11:58:31.000000000 +0200
+@@ -5,12 +5,13 @@
+ #SourcePath=/home/abuild/rpmbuild/BUILD/system-plugin-slp-0.0.1/etc/fstab
+ DefaultDependencies=no
+ Before=local-fs.target
+-Requires=fsck@dev-mmcblk0p6.service
+-After=local-fs-pre.target fsck@dev-mmcblk0p6.service resize2fs@dev-mmcblk0p6.service
+-Wants=resize2fs@dev-mmcblk0p6.service
++Requires=fsck@dev-mmcblk0p3.service
++#After=local-fs-pre.target fsck@dev-mmcblk0p6.service resize2fs@dev-mmcblk0p6.service
++After=local-fs-pre.target fsck@dev-mmcblk0p3.service
++#Wants=resize2fs@dev-mmcblk0p6.service
+ 
+ [Mount]
+-What=/dev/mmcblk0p6
++What=/dev/mmcblk0p3
+ Where=/opt
+ Type=ext4
+ Options=defaults
+diff -ru --no-dereference systemd.orig/system/opt-usr.mount systemd/system/opt-usr.mount
+--- systemd.orig/system/opt-usr.mount	2013-07-17 08:04:11.000000000 +0200
++++ systemd/system/opt-usr.mount	2014-06-18 11:58:09.000000000 +0200
+@@ -5,12 +5,13 @@
+ #SourcePath=/home/abuild/rpmbuild/BUILD/system-plugin-slp-0.0.1/etc/fstab
+ DefaultDependencies=no
+ Before=local-fs.target
+-Requires=fsck@dev-mmcblk0p7.service
+-After=local-fs-pre.target fsck@dev-mmcblk0p7.service resize2fs@dev-mmcblk0p7.service
+-Wants=resize2fs@dev-mmcblk0p7.service
++Requires=fsck@dev-mmcblk0p2.service
++#After=local-fs-pre.target fsck@dev-mmcblk0p7.service resize2fs@dev-mmcblk0p7.service
++After=local-fs-pre.target fsck@dev-mmcblk0p2.service
++#Wants=resize2fs@dev-mmcblk0p7.service
+ 
+ [Mount]
+-What=/dev/mmcblk0p7
++What=/dev/mmcblk0p2
+ Where=/opt/usr
+ Type=ext4
+ Options=defaults
+diff -ru --no-dereference systemd.orig/system/tmp.mount systemd/system/tmp.mount
+--- systemd.orig/system/tmp.mount	2013-07-17 08:20:12.000000000 +0200
++++ systemd/system/tmp.mount	2014-06-18 12:03:32.000000000 +0200
+@@ -7,4 +7,5 @@
+ What=tmpfs
+ Where=/tmp
+ Type=tmpfs
+-Options=relatime,nodev,nosuid,noexec,size=128M,smackfsroot=*
++#Options=relatime,nodev,nosuid,noexec,size=128M,smackfsroot=*
++Options=relatime,nodev,nosuid,noexec,size=128M
