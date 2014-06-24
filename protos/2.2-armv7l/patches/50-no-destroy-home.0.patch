@@ -1,0 +1,7 @@
+--- etc.orig/profile.d/Xorg.sh	2013-06-28 05:21:41.000000000 +0200
++++ etc/profile.d/Xorg.sh	2014-06-18 19:33:22.000000000 +0200
+@@ -1,2 +1,2 @@
+-export HOME=/root
+-export DISPLAY=:0
++#export HOME=/root
++#export DISPLAY=:0
