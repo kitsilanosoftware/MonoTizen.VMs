@@ -104,3 +104,19 @@ $(DATA)/images/$(PROTO)/base.qcow2:				\
 		$(TIZEN_VM__3_2_0_4_vexpress_MODULES_TAR)
 	chmod a-w $@.tmp
 	@mv $@.tmp $@
+
+$(TMP)/vm-%/setup.tar:				\
+		protos/$(PROTO)/vm-setup.sh	\
+		$(TMP)/vm-%/setup.env		\
+		$(TMP)/$(PROTO)/orig.stamp
+	@mkdir -p $(dir $@)
+	@rm -rf $(dir $@)vm-setup
+	@mkdir -p $(dir $@)vm-setup/etc
+	tar xf $(PWD)/$(TMP)/$(PROTO)/etc.tar	\
+		-C $(dir $@)vm-setup/etc	\
+		./sysconfig/network
+	$(BASH) protos/$(PROTO)/vm-setup.sh	\
+		$(TMP)/vm-$*/setup.env		\
+		$(dir $@)vm-setup
+	tar cf $@.tmp -C $(dir $@)vm-setup .
+	@mv $@.tmp $@
