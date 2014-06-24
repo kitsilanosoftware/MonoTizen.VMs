@@ -1,2 +1,3 @@
-6db12cfb40976e69bc7624a18807a824  vmlinuz-3.2.0-4-vexpress
-665aec106555276d49df5f4a9db3d909  initrd.img-3.2.0-4-vexpress
+6474b4cce67fdfa7df7b65eaf6be25b9  debian_wheezy_armhf_standard.qcow2
+2aa949c0a816ad87b1abf3a4da36a0b7  initrd.img-3.2.0-4-vexpress
+7a7e63425423e39d1891a9d4ac6ad0b6  vmlinuz-3.2.0-4-vexpress

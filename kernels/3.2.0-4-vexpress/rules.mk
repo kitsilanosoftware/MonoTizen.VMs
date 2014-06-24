@@ -17,10 +17,14 @@
 
 TIZEN_VM__3_2_0_4_vexpress_FILES =		\
 	vmlinuz-3.2.0-4-vexpress		\
-	initrd.img-3.2.0-4-vexpress
+	initrd.img-3.2.0-4-vexpress		\
+	debian_wheezy_armhf_standard.qcow2
 
 TIZEN_VM__3_2_0_4_vexpress_BASE_URL =			\
 	http://people.debian.org/~aurel32/qemu/armhf
+
+TIZEN_VM__3_2_0_4_vexpress_MODULES_TAR =	\
+	$(TMP)/3.2.0-4-vexpress/modules.tar
 
 $(DOWNLOADS)/3.2.0-4-vexpress/stamp:				\
 		kernels/3.2.0-4-vexpress/downloads.md5sums
@@ -35,3 +39,11 @@ $(DOWNLOADS)/3.2.0-4-vexpress/stamp:				\
 		mv $(TMP)/3.2.0-4-vexpress/$$F $(dir $@);	\
 	done
 	touch $@
+
+$(TIZEN_VM__3_2_0_4_vexpress_MODULES_TAR):		\
+		$(DOWNLOADS)/3.2.0-4-vexpress/stamp
+	@mkdir -p $(dir $@)
+	cd $(dir $@) && guestfish --ro    \
+		-a $(PWD)/$(DOWNLOADS)/3.2.0-4-vexpress/debian_wheezy_armhf_standard.qcow2 \
+		-f $(PWD)/kernels/3.2.0-4-vexpress/modules.guestfish
+	mv $@.tmp $@
