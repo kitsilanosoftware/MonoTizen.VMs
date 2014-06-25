@@ -19,7 +19,14 @@
 
 set -e
 
+PRELOAD_DIR=/root/rpms
+
+if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
+    rpm -i "$PRELOAD_DIR"/*/*.rpm
+fi
+
 zypper -n refresh
 zypper -n install                               \
     autoconf automake libtool gettext-tools     \
-    gcc-c++ kernel-headers make rpm-build
+    gcc-c++ kernel-headers make rpm-build       \
+    bison fdupes zlib-devel pkgconfig

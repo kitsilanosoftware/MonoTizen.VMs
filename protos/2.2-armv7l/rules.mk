@@ -15,8 +15,12 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
+TIZEN_VM__2_2_armv7l_PREFIX_URL =					\
+	http://download.tizen.org/releases/2.2/tizen-2.2_20130719.3
+TIZEN_VM__2_2_armv7l_IMAGES_URL =			\
+	$(TIZEN_VM__2_2_armv7l_PREFIX_URL)/images/RD-PQ
+
 TIZEN_VM__2_2_armv7l_TARBALL = tizen-2.2_20130719.3_RD-PQ.tar.gz
-TIZEN_VM__2_2_armv7l_BASE_URL = http://download.tizen.org/releases/2.2/tizen-2.2_20130719.3/images/RD-PQ
 
 TIZEN_VM__2_2_armv7l_PATCHES = $(wildcard protos/$(PROTO)/patches/*.patch)
 
@@ -32,7 +36,7 @@ $(DOWNLOADS)/$(PROTO)/$(TIZEN_VM__2_2_armv7l_TARBALL).stamp:	\
 		protos/$(PROTO)/downloads.md5sums
 	@mkdir -p $(dir $@) $(TMP)/$(PROTO)
 	wget -O $(TMP)/$(PROTO)/$(TIZEN_VM__2_2_armv7l_TARBALL) \
-		$(TIZEN_VM__2_2_armv7l_BASE_URL)/$(TIZEN_VM__2_2_armv7l_TARBALL)
+		$(TIZEN_VM__2_2_armv7l_IMAGES_URL)/$(TIZEN_VM__2_2_armv7l_TARBALL)
 	cd $(TMP)/$(PROTO) &&						    \
 		md5sum -c --strict $(PWD)/protos/$(PROTO)/downloads.md5sums
 	mv $(TMP)/$(PROTO)/$(TIZEN_VM__2_2_armv7l_TARBALL) $(dir $@)

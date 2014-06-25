@@ -18,6 +18,8 @@
 TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
 	$(wildcard bundles/mono-tizen-devel/files/root/*)
 
+-include protos/$(PROTO)/mono-tizen-devel.mk
+
 $(TMP)/bundles/mono-tizen-devel.setup:		\
 		$(TMP)/mono-tizen-devel.tar
 	@mkdir -p $(dir $@)
@@ -25,18 +27,37 @@ $(TMP)/bundles/mono-tizen-devel.setup:		\
 	mv $@.tmp $@
 
 $(TMP)/mono-tizen-devel.tar:			\
-		$(TMP)/mono-tizen-devel.stamp
+		$(TMP)/mono-tizen-devel/tar.stamp
 	@mkdir -p $(dir $@)
-	tar cf $@.tmp -C $(TMP)/mono-tizen-devel .
+	tar cf $@.tmp -C $(TMP)/mono-tizen-devel/tar .
 	@mv $@.tmp $@
 
-$(TMP)/mono-tizen-devel.stamp:					\
+$(TMP)/mono-tizen-devel/tar.stamp:				\
+		$(TMP)/mono-tizen-devel/rpms-$(PROTO).stamp	\
 		$(TIZEN_VM__mono_tizen_devel_ROOT_FILES)
 	@mkdir -p $(dir $@)
-	@rm -rf $(dir $@)mono-tizen-devel
-	@mkdir -p $(dir $@)mono-tizen-devel/root
+	@rm -rf $(dir $@)tar
+	@mkdir -p $(dir $@)tar/root
 	for F in $(notdir $(TIZEN_VM__mono_tizen_devel_ROOT_FILES)); do	\
 		cp bundles/mono-tizen-devel/files/root/$$F		\
-			$(dir $@)mono-tizen-devel/root;			\
+			$(dir $@)tar/root;				\
+	done
+	for F in $(TIZEN_VM__mono_tizen_devel_RPMS); do			\
+		mkdir -p $(dir $@)tar/root/rpms/$$(dirname $$F);	\
+		ln $(DOWNLOADS)/mono-tizen-devel/$$F			\
+			$(dir $@)tar/root/rpms/$$F;			\
 	done
 	touch $@
+
+$(TMP)/mono-tizen-devel/rpms-$(PROTO).stamp:			\
+		$(foreach R,$(TIZEN_VM__mono_tizen_devel_RPMS),	\
+			$(DOWNLOADS)/mono-tizen-devel/$(R))
+	@mkdir -p $(dir $@)
+	touch $@
+
+$(DOWNLOADS)/mono-tizen-devel/%.rpm:
+	@mkdir -p $(dir $@)
+	wget -O $@.tmp						\
+		$(TIZEN_VM__mono_tizen_devel_REPO_URL)/$(subst	\
+			$(DOWNLOADS)/mono-tizen-devel/,,$@)
+	@mv $@.tmp $@
