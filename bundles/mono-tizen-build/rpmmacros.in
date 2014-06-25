@@ -1,0 +1,2 @@
+%_topdir      @@RPM_BUILD@@
+%_tmppath     @@RPM_BUILD@@/tmp
