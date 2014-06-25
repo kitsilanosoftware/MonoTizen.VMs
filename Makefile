@@ -36,7 +36,7 @@ include bundles/mono-tizen-rpm/rules.mk
 MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
 BUNDLE_SETUPS =							\
-	$(foreach B,$(VM_BUNDLES),$(TMP)/bundles/$(B).setup)
+	$(foreach B,$(VM_BUNDLES),$(TMP)/vm-$(NAME)/$(B).setup)
 
 $(TMP)/vm-$(NAME)/all.setup:			\
 		$(BUNDLE_SETUPS)

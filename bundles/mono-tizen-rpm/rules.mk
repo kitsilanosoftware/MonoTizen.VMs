@@ -18,8 +18,8 @@
 MONO_TIZEN_CLONE = /path/to/mono/git/clone
 MONO_TIZEN_VERSION = 3.6.1
 
-$(TMP)/bundles/mono-tizen-rpm.setup:			\
-		$(TMP)/bundles/mono-tizen-build.setup	\
+$(TMP)/vm-$(NAME)/mono-tizen-rpm.setup:				\
+		$(TMP)/vm-$(NAME)/mono-tizen-build.setup	\
 		$(TMP)/mono-tizen-rpm.tar
 	@mkdir -p $(dir $@)
 	cp $< $@.tmp

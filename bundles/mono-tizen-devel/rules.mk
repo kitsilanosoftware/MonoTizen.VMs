@@ -20,7 +20,7 @@ TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
 
 -include protos/$(PROTO)/mono-tizen-devel.mk
 
-$(TMP)/bundles/mono-tizen-devel.setup:		\
+$(TMP)/vm-%/mono-tizen-devel.setup:		\
 		$(TMP)/mono-tizen-devel.tar
 	@mkdir -p $(dir $@)
 	echo bundles/mono-tizen-devel/setup.sh > $@.tmp

@@ -24,8 +24,8 @@ TIZEN_VM__mono_tizen_build_MONO_SOURCES =		\
 TIZEN_VM__mono_tizen_build_RPM_BUILD =			\
 	$(TIZEN_VM__mono_tizen_build_MT)/rpm-build
 
-$(TMP)/bundles/mono-tizen-build.setup:			\
-		$(TMP)/bundles/mono-tizen-devel.setup	\
+$(TMP)/vm-%/mono-tizen-build.setup:			\
+		$(TMP)/vm-%/mono-tizen-devel.setup	\
 		$(TMP)/mono-tizen-build.tar
 	@mkdir -p $(dir $@)
 	cp $< $@.tmp
