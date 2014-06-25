@@ -1,0 +1,5 @@
+Host @@VM_HOSTNAME@@
+  Port @@VM_SSH_PORT_FWD@@
+  User developer
+  HostName @@VM_HOST_HOSTNAME@@
+  StrictHostKeyChecking no

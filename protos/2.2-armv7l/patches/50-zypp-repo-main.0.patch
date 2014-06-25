@@ -1,0 +1,14 @@
+--- etc.orig/zypp/repos.d/Tizen-main.repo	2013-07-19 09:26:32.000000000 +0200
++++ etc/zypp/repos.d/Tizen-main.repo	2014-06-18 12:40:23.000000000 +0200
+@@ -1,7 +1,7 @@
+ [Tizen-main]
+ name=Tizen-main
+-failovermethod=priority
+-baseurl=file:///srv/snapshots//2.2/common/tizen-2.2_20130719.3/repos/tizen-main/armv7l/packages/
+-gpgcheck=0
+ enabled=1
+-
++autorefresh=0
++baseurl=http://download.tizen.org/releases/2.2/tizen-2.2_20130719.3/repos/tizen-main/armv7l/packages/
++type=rpm-md
++gpgcheck=0

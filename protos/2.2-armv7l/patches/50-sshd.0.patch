@@ -1,0 +1,16 @@
+--- /dev/null	2014-06-15 16:20:45.613603000 +0200
++++ usr/lib/systemd/system/sshd.service	2014-06-25 08:06:17.322414691 +0200
+@@ -0,0 +1,13 @@
++[Unit]
++Description=OpenSSH Daemon
++After=network.target
++
++[Service]
++Type=forking
++ExecStart=/etc/init.d/ssh start
++KillMode=process
++Restart=always
++
++[Install]
++WantedBy=emulator.target
++

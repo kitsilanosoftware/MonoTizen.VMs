@@ -1,0 +1,11 @@
+--- etc.orig/zypp/zypp.conf	2013-11-04 17:35:48.000000000 +0100
++++ etc/zypp/zypp.conf	2014-06-16 21:22:48.000000000 +0200
+@@ -18,7 +18,7 @@
+ ## ** of all repository data.
+ ##
+ # arch = s390
+-
++arch = i686
+ 
+ ##
+ ## Path where the caches are kept.

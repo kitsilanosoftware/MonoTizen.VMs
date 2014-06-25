@@ -1,0 +1,11 @@
+--- etc.orig/passwd	2013-07-19 09:26:32.000000000 +0200
++++ etc/passwd	2014-06-25 08:19:13.580144366 +0200
+@@ -8,7 +8,7 @@
+ nobody:*:99:99:Nobody:/:
+ sshd:x:112:65534::/var/run/sshd:/usr/sbin/nologin
+ app:x:5000:5000:In-house application:/home/app:/bin/sh
+-developer::5100:5100:developer with SDK:/home/developer:/bin/false
++developer::5100:5100:developer with SDK:/home/developer:/bin/sh
+ testuser:x:5101:5101:test user:/home/testuser:/bin/sh
+ pulse:x:6507:6507:PulseAudio daemon:/var/run/pulse:/bin/false
+ system:x:1000:1000:SPLUSA:/home/system:/bin/sh

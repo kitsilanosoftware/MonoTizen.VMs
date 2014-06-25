@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+BASE="$(dirname "$0")"
+VM_SSH_PORT_FWD='@@VM_SSH_PORT_FWD@@'
+
+ssh_fwd_args=''
+if test -n "$VM_SSH_PORT_FWD"; then
+    ssh_fwd_args="-net user,hostfwd=tcp::${VM_SSH_PORT_FWD}-:22"
+fi
+
+exec qemu-system-i386 -m 1G -enable-kvm                         \
+    -kernel "$BASE/../../downloads/2.2-i686/bzImage.x86"        \
+    -drive "file=$BASE/disk.qcow2,if=virtio,index=1" -boot c    \
+    -net nic $ssh_fwd_args

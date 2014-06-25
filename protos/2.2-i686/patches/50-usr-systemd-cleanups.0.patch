@@ -1,0 +1,10 @@
+--- usr.orig/lib/systemd/system/bootmode-graphical.service	2013-09-30 03:02:36.000000000 +0200
++++ usr/lib/systemd/system/bootmode-graphical.service	2014-06-17 16:55:53.000000000 +0200
+@@ -4,5 +4,6 @@
+ 
+ [Service]
+ Type=oneshot
+-ExecStart=/bin/systemctl isolate graphical.target
++#ExecStart=/bin/systemctl isolate graphical.target
++ExecStart=/bin/systemctl isolate multi-user.target
+ 

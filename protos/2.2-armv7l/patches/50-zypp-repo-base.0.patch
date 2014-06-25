@@ -1,0 +1,11 @@
+--- /dev/null	2014-06-15 16:20:45.613603000 +0200
++++ etc/zypp/repos.d/Tizen-base.repo	2014-06-18 12:44:57.000000000 +0200
+@@ -0,0 +1,8 @@
++[Tizen-base]
++name=Tizen-base
++enabled=1
++autorefresh=0
++baseurl=http://download.tizen.org/releases/2.2/tizen-2.2_20130719.3/repos/tizen-base/armv7l/packages/
++type=rpm-md
++gpgcheck=0
++keeppackages=0
