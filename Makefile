@@ -1,3 +1,20 @@
+# Copyright 2014 Kitsilano Software Inc.
+#
+# This file is part of MonoTizen.
+#
+# MonoTizen is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# MonoTizen is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
+
 PROTO   ?= no-proto
 NAME    ?= unnamed-vm
 
@@ -9,8 +26,10 @@ TMP = tmp
 
 VM_SSH_PORT_FWD =
 VM_HOST_HOSTNAME = 127.0.0.1
+VM_BUNDLES =
 
 include protos/$(PROTO)/rules.mk
+include bundles/mono-tizen-devel/rules.mk
 
 MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
@@ -18,6 +37,7 @@ $(DATA)/vms/$(NAME)/disk.qcow2:				\
 		$(DATA)/images/$(PROTO)/base.qcow2	\
 		protos/$(PROTO)/mount.guestfish		\
 		$(TMP)/vm-$(NAME)/setup.tar		\
+		$(foreach B,$(VM_BUNDLES),$(B)-bundle)	\
 		tools/setup.sh
 	@mkdir -p $(dir $@)
 	cd $(dir $@) && qemu-img create -f qcow2			\
@@ -26,6 +46,9 @@ $(DATA)/vms/$(NAME)/disk.qcow2:				\
 	$(BASH) tools/setup.sh $@.tmp		\
 		protos/$(PROTO)/mount.guestfish	\
 		$(TMP)/vm-$(NAME)/setup.tar
+	$(foreach B,$(VM_BUNDLES),				\
+		$(BASH) bundles/$(B)/setup.sh $@.tmp		\
+			protos/$(PROTO)/mount.guestfish)
 	@mv $@.tmp $@
 
 $(DATA)/vms/$(NAME)/ssh_config:			\
@@ -58,4 +81,5 @@ vm: $(DATA)/vms/$(NAME)/start.sh
 
 .PHONY:						\
 	vm					\
-	2.2-armv7l-kernel
+	2.2-armv7l-kernel			\
+	mono-tizen-devel-bundle
