@@ -2,12 +2,12 @@
 
 BASE="$(dirname "$0")"
 VEXPRESS_DIR="$BASE/../../downloads/3.2.0-4-vexpress"
-SSH_FWD_PORT='@@SSH_FWD_PORT@@'
+VM_SSH_PORT_FWD='@@VM_SSH_PORT_FWD@@'
 INIT=/sbin/init
 
 ssh_fwd_args=''
-if test -n "$SSH_FWD_PORT"; then
-    ssh_fwd_args="-net user,hostfwd=tcp::${SSH_FWD_PORT}-:22"
+if test -n "$VM_SSH_PORT_FWD"; then
+    ssh_fwd_args="-net user,hostfwd=tcp::${VM_SSH_PORT_FWD}-:22"
 fi
 
 exec qemu-system-arm -M vexpress-a9 -m 1G                       \
