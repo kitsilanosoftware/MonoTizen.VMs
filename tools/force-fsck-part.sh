@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
+set -e
+
 function guestfish_fsck {
     local image="$1"; shift
     local device="$1"; shift

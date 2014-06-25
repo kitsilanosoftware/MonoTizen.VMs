@@ -17,6 +17,8 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
+set -e
+
 function apply_patches {
     local work_dir="$1"; shift
 

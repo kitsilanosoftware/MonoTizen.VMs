@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 BASE="$(dirname "$0")"
 VEXPRESS_DIR="$BASE/../../downloads/3.2.0-4-vexpress"
 VM_SSH_PORT_FWD='@@VM_SSH_PORT_FWD@@'
