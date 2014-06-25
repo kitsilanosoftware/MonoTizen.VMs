@@ -69,6 +69,7 @@ rm /usr/lib/systemd/system/multi-user.target.wants/sound-server.path
 rm /usr/lib/systemd/system/multi-user.target.wants/systemd-ask-password-wall.path
 rm /usr/lib/systemd/system/multi-user.target.wants/telephony.service
 rm /usr/lib/systemd/system/multi-user.target.wants/wrt-security-daemon.service
+ln-s /usr/lib/systemd/system/sshd.service /usr/lib/systemd/system/multi-user.target.wants/sshd.service
 EOF
 }
 
