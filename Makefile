@@ -16,7 +16,8 @@ MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
 $(DATA)/vms/$(NAME)/disk.qcow2:				\
 		$(DATA)/images/$(PROTO)/base.qcow2	\
-		$(TMP)/vm-$(NAME)/setup.tar
+		$(TMP)/vm-$(NAME)/setup.tar		\
+		tools/setup.sh
 	@mkdir -p $(dir $@)
 	cd $(dir $@) && qemu-img create -f qcow2			\
 		-o backing_file=../../images/$(PROTO)/$(notdir $<)	\
