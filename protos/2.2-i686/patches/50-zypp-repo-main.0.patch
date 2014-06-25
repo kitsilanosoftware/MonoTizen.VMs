@@ -1,0 +1,14 @@
+--- etc.orig/zypp/repos.d/Tizen-main.repo	2013-11-07 15:08:23.000000000 +0100
++++ etc/zypp/repos.d/Tizen-main.repo	2014-06-16 21:10:19.000000000 +0200
+@@ -1,7 +1,7 @@
+ [Tizen-main]
+ name=Tizen-main
+-failovermethod=priority
+-baseurl=file:///srv/snapshots//tizen-2.2-emul/common/tizen-2.2-emul_20131107.5/repos/tizen-main/ia32/packages/
+-gpgcheck=0
+ enabled=1
+-
++autorefresh=0
++baseurl=http://download.tizen.org/releases/2.2.1/tizen-2.2_20131107.3/repos/tizen-base/ia32/packages/
++type=rpm-md
++gpgcheck=0
