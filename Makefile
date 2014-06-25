@@ -32,6 +32,7 @@ include protos/$(PROTO)/rules.mk
 include bundles/mono-tizen-devel/rules.mk
 include bundles/mono-tizen-build/rules.mk
 include bundles/mono-tizen-rpm/rules.mk
+include bundles/mono-tizen-monolite/rules.mk
 
 MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
