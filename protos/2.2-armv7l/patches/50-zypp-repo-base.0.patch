@@ -8,4 +8,4 @@
 +baseurl=http://download.tizen.org/releases/2.2/tizen-2.2_20130719.3/repos/tizen-base/armv7l/packages/
 +type=rpm-md
 +gpgcheck=0
-+keeppackages=0
++keeppackages=1
