@@ -48,8 +48,10 @@ $(TMP)/mono-tizen-build/tar.stamp:				\
 	done
 	sed < $< > $(TMP)/mono-tizen-build.rpmmacros			   \
 		-e 's|@@RPM_BUILD@@|/home/developer/mono-tizen/rpm-build|'
+	echo '# KLUDGE.  Tizen is not well set up.'	\
+		>> $(TMP)/mono-tizen-build.rpmmacros
+	echo '%_host %{_target_platform}'		\
+		>> $(TMP)/mono-tizen-build.rpmmacros
 	mv $(TMP)/mono-tizen-build.rpmmacros				\
 		$(dir $@)tar/$(TIZEN_VM__mono_tizen_build_HOME)/.rpmmacros
-	# Add %_host i586-tizen-linux to Intel!
-	@test $(PROTO) = 2.2-armv7l
 	touch $@
