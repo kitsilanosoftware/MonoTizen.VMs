@@ -20,20 +20,20 @@ TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
 
 -include protos/$(PROTO)/mono-tizen-devel.mk
 
-$(TMP)/vm-%/mono-tizen-devel.setup:		\
-		$(TMP)/mono-tizen-devel.tar
+$(TMP)/vm-%/mono-tizen-devel.setup:			\
+		$(TMP)/mono-tizen-devel-$(PROTO).tar
 	@mkdir -p $(dir $@)
 	echo bundles/mono-tizen-devel/setup.sh > $@.tmp
 	mv $@.tmp $@
 
-$(TMP)/mono-tizen-devel.tar:			\
-		$(TMP)/mono-tizen-devel/tar.stamp
+$(TMP)/mono-tizen-devel-$(PROTO).tar:				\
+		$(TMP)/mono-tizen-devel-$(PROTO)/tar.stamp
 	@mkdir -p $(dir $@)
-	tar cf $@.tmp -C $(TMP)/mono-tizen-devel/tar .
+	tar cf $@.tmp -C $(TMP)/mono-tizen-devel-$(PROTO)/tar .
 	@mv $@.tmp $@
 
-$(TMP)/mono-tizen-devel/tar.stamp:				\
-		$(TMP)/mono-tizen-devel/rpms-$(PROTO).stamp	\
+$(TMP)/mono-tizen-devel-$(PROTO)/tar.stamp:			\
+		$(TMP)/mono-tizen-devel-$(PROTO)/rpms.stamp	\
 		$(TIZEN_VM__mono_tizen_devel_ROOT_FILES)
 	@mkdir -p $(dir $@)
 	@rm -rf $(dir $@)tar
@@ -49,7 +49,7 @@ $(TMP)/mono-tizen-devel/tar.stamp:				\
 	done
 	touch $@
 
-$(TMP)/mono-tizen-devel/rpms-$(PROTO).stamp:			\
+$(TMP)/mono-tizen-devel-$(PROTO)/rpms.stamp:			\
 		$(foreach R,$(TIZEN_VM__mono_tizen_devel_RPMS),	\
 			$(DOWNLOADS)/mono-tizen-devel/$(R))
 	@mkdir -p $(dir $@)

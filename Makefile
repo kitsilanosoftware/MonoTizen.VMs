@@ -28,6 +28,9 @@ VM_SSH_PORT_FWD =
 VM_HOST_HOSTNAME = 127.0.0.1
 VM_BUNDLES =
 
+TIZEN_VM_PROTO = $(PROTO)
+export TIZEN_VM_PROTO
+
 include protos/$(PROTO)/rules.mk
 include bundles/mono-tizen-devel/rules.mk
 include bundles/mono-tizen-build/rules.mk
