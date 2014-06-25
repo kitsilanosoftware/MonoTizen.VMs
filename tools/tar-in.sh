@@ -19,10 +19,9 @@
 
 set -e
 
-function guestfish_setup {
+function guestfish_tar_in {
     local image="$1"; shift
     local proto_mount_guestfish="$1"; shift
-    local setup_tar="$1"; shift
 
     (
         cat <<EOF
@@ -30,9 +29,9 @@ add $image
 run
 EOF
         cat "$proto_mount_guestfish"
-        cat <<EOF
-tar-in $setup_tar /
-EOF
+        for tar in "$@"; do
+            echo "tar_in $tar /"
+        done
     ) | guestfish
 
     status=${PIPESTATUS[0]}
@@ -41,4 +40,4 @@ EOF
     fi
 }
 
-guestfish_setup "$@"
+guestfish_tar_in "$@"

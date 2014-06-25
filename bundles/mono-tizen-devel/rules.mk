@@ -18,7 +18,11 @@
 TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
 	$(wildcard bundles/mono-tizen-devel/files/root/*)
 
-mono-tizen-devel-bundle: $(TMP)/mono-tizen-devel.tar
+$(TMP)/bundles/mono-tizen-devel.setup:		\
+		$(TMP)/mono-tizen-devel.tar
+	@mkdir -p $(dir $@)
+	echo bundles/mono-tizen-devel/setup.sh > $@.tmp
+	mv $@.tmp $@
 
 $(TMP)/mono-tizen-devel.tar:			\
 		$(TMP)/mono-tizen-devel.stamp

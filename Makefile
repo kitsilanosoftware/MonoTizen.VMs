@@ -33,22 +33,32 @@ include bundles/mono-tizen-devel/rules.mk
 
 MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
+BUNDLE_SETUPS =							\
+	$(foreach B,$(VM_BUNDLES),$(TMP)/bundles/$(B).setup)
+
+$(TMP)/vm-$(NAME)/all.setup:			\
+		$(BUNDLE_SETUPS)
+	@mkdir -p $(dir $@)
+	sort -u /dev/null $^ > $@.tmp
+	@mv $@.tmp $@
+
 $(DATA)/vms/$(NAME)/disk.qcow2:				\
 		$(DATA)/images/$(PROTO)/base.qcow2	\
 		protos/$(PROTO)/mount.guestfish		\
 		$(TMP)/vm-$(NAME)/setup.tar		\
-		$(foreach B,$(VM_BUNDLES),$(B)-bundle)	\
-		tools/setup.sh
+		$(TMP)/vm-$(NAME)/all.setup		\
+		tools/tar-in.sh
 	@mkdir -p $(dir $@)
 	cd $(dir $@) && qemu-img create -f qcow2			\
 		-o backing_file=../../images/$(PROTO)/$(notdir $<)	\
 		$(notdir $@).tmp
-	$(BASH) tools/setup.sh $@.tmp		\
+	$(BASH) tools/tar-in.sh $@.tmp		\
 		protos/$(PROTO)/mount.guestfish	\
 		$(TMP)/vm-$(NAME)/setup.tar
-	$(foreach B,$(VM_BUNDLES),				\
-		$(BASH) bundles/$(B)/setup.sh $@.tmp		\
-			protos/$(PROTO)/mount.guestfish)
+	for S in $(shell cat $(TMP)/vm-$(NAME)/all.setup); do	\
+		$(BASH) $$S $@.tmp				\
+			protos/$(PROTO)/mount.guestfish;	\
+	done
 	@mv $@.tmp $@
 
 $(DATA)/vms/$(NAME)/ssh_config:			\
@@ -81,5 +91,4 @@ vm: $(DATA)/vms/$(NAME)/start.sh
 
 .PHONY:						\
 	vm					\
-	2.2-armv7l-kernel			\
-	mono-tizen-devel-bundle
+	2.2-armv7l-kernel

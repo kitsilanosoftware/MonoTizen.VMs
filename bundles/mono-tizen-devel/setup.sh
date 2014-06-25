@@ -19,25 +19,4 @@
 
 set -e
 
-function guestfish_bundle_setup {
-    local image="$1"; shift
-    local proto_mount_guestfish="$1"; shift
-
-    (
-        cat <<EOF
-add $image
-run
-EOF
-        cat "$proto_mount_guestfish"
-        cat <<EOF
-tar-in tmp/mono-tizen-devel.tar /
-EOF
-    ) | guestfish
-
-    status=${PIPESTATUS[0]}
-    if test $status -ne 0; then
-        return $status
-    fi
-}
-
-guestfish_bundle_setup "$@"
+tools/tar-in.sh "$1" "$2" tmp/mono-tizen-devel.tar
