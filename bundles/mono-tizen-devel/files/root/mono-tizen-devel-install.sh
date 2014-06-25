@@ -22,7 +22,7 @@ set -e
 PRELOAD_DIR=/root/rpms
 
 if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
-    rpm -i "$PRELOAD_DIR"/*/*.rpm
+    rpm -i "$PRELOAD_DIR"/*/*.rpm && rm -rf "$PRELOAD_DIR"
 fi
 
 zypper -n refresh
