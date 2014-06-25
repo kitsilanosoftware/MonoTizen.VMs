@@ -1,5 +1,3 @@
-#!/bin/bash
-#
 # Copyright 2014 Kitsilano Software Inc.
 #
 # This file is part of MonoTizen.
@@ -17,39 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-set -e
-
-LF='
-'
-
-function guestfish_setup {
-    local image="$1"; shift
-    local proto_mount_guestfish="$1"; shift
-    local setup_tar="$1"; shift
-    local home_alloc="$1"; shift
-    local more_cmds
-
-    if test -n "$home_alloc"; then
-        more_cmds="${more_cmds}fallocate64 /home/alloc.filler $home_alloc$LF"
-        more_cmds="${more_cmds}rm /home/alloc.filler$LF"
-    fi
-
-    (
-        cat <<EOF
-add $image
-run
-EOF
-        cat "$proto_mount_guestfish"
-        cat <<EOF
-tar-in $setup_tar /
-$more_cmds
-EOF
-    ) | guestfish
-
-    status=${PIPESTATUS[0]}
-    if test $status -ne 0; then
-        return $status
-    fi
-}
-
-guestfish_setup "$@"
+mount /dev/sda1 /
+mount /dev/sda3 /opt
+mount /dev/sda2 /opt/usr

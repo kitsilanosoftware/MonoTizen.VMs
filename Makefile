@@ -9,6 +9,7 @@ TMP = tmp
 
 VM_SSH_PORT_FWD =
 VM_HOST_HOSTNAME = 127.0.0.1
+VM_HOME_ALLOC =
 
 include protos/$(PROTO)/rules.mk
 
@@ -16,13 +17,17 @@ MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 
 $(DATA)/vms/$(NAME)/disk.qcow2:				\
 		$(DATA)/images/$(PROTO)/base.qcow2	\
+		protos/$(PROTO)/mount.guestfish		\
 		$(TMP)/vm-$(NAME)/setup.tar		\
 		tools/setup.sh
 	@mkdir -p $(dir $@)
 	cd $(dir $@) && qemu-img create -f qcow2			\
 		-o backing_file=../../images/$(PROTO)/$(notdir $<)	\
 		$(notdir $@).tmp
-	$(BASH) tools/setup.sh $@.tmp $(TMP)/vm-$(NAME)/setup.tar
+	$(BASH) tools/setup.sh $@.tmp		\
+		protos/$(PROTO)/mount.guestfish	\
+		$(TMP)/vm-$(NAME)/setup.tar	\
+		'$(VM_HOME_ALLOC)'
 	@mv $@.tmp $@
 
 $(DATA)/vms/$(NAME)/ssh_config:			\
