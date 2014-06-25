@@ -81,7 +81,7 @@ $(TMP)/$(PROTO)/patched.stamp:			\
 
 $(TMP)/$(PROTO)/patched.tar: $(TMP)/$(PROTO)/patched.stamp
 	@mkdir -p $(dir $@)
-	tar cvf $@.tmp -C $(TMP)/$(PROTO)/patchwork .
+	tar cf $@.tmp -C $(TMP)/$(PROTO)/patchwork .
 	@mv $@.tmp $@
 
 $(DATA)/images/$(PROTO)/base.qcow2:				\
