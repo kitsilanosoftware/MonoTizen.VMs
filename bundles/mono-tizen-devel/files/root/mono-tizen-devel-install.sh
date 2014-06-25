@@ -22,7 +22,14 @@ set -e
 PRELOAD_DIR=/root/rpms
 
 if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
-    rpm -i "$PRELOAD_DIR"/*/*.rpm && rm -rf "$PRELOAD_DIR"
+    rpm_flags='-i'
+    if test -f "$PRELOAD_DIR/i686/eglibc-2.13-2.16.i686.rpm"; then
+        # KLUDGE: We don't have an exact match between the emulator
+        # image and the upstream packages, and have to act nasty.
+        rpm_flags='-i --nodeps --ignorearch --force'
+    fi
+
+    rpm $rpm_flags "$PRELOAD_DIR"/*/*.rpm && rm -rf "$PRELOAD_DIR"
 fi
 
 zypper -n refresh
