@@ -35,7 +35,7 @@ $(DATA)/vms/$(NAME)/ssh_config:			\
 	@mv $@.tmp $@
 
 $(DATA)/vms/$(NAME)/start.sh:			\
-		protos/$(PROTO)/start.sh.in	\
+		$(TMP)/$(PROTO)/start.in	\
 		$(MAYBE_SSH_CONFIG)		\
 		$(DATA)/vms/$(NAME)/disk.qcow2	\
 		$(PROTO)-kernel
