@@ -1,7 +1,0 @@
---- etc.orig/passwd	2013-07-19 09:26:32.000000000 +0200
-+++ etc/passwd	2014-06-24 15:33:55.619099273 +0200
-@@ -35,3 +35,4 @@
- net_raw:x:3004:3004:SPLUSA:/home/net_raw:/bin/false
- net_admin:x:3005:3005:SPLUSA:/home/net_admin:/bin/false
- misc:x:9998:9998:SPLUSA:/home/misc:/bin/false
-+mono-tizen::9999:9999::/home/mono-tizen:/bin/sh
