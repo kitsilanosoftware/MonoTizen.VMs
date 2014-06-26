@@ -65,6 +65,7 @@ $(DATA)/vms/$(NAME)/disk.qcow2:				\
 		$(BASH) $$S $@.tmp				\
 			protos/$(PROTO)/mount.guestfish;	\
 	done
+	qemu-img snapshot -c initial $@.tmp
 	@mv $@.tmp $@
 
 $(DATA)/vms/$(NAME)/ssh_config:			\
