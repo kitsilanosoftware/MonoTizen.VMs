@@ -15,7 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-MONO_TIZEN_CLONE = /path/to/mono/git/clone
+MONO_TIZEN_CLONE = ../mono
 MONO_TIZEN_VERSION = 3.6.1
 
 $(TMP)/vm-$(NAME)/mono-tizen-rpm.setup:				\

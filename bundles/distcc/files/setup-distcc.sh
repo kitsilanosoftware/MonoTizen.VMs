@@ -19,4 +19,29 @@
 
 set -e
 
-tools/tar-in.sh "$1" "$2" tmp/mono-tizen-devel-$TIZEN_VM_PROTO.tar
+PREFIX="$HOME/opt/distcc"
+
+build_arg=
+if test -r /etc/rpm/platform; then
+    build_arg="--build=$(cat /etc/rpm/platform)"
+fi
+
+cd "$HOME/sources/distcc"
+./autogen.sh
+./configure "$build_arg" --prefix="$PREFIX" --disable-Werror
+make distcc
+make install-programs bin_PROGRAMS=distcc
+
+for cc_path in /usr/bin/*gcc* /usr/bin/*g++*; do
+    cc_name="$(basename "$cc_path")"
+    cc_wrapper="$PREFIX/bin/$cc_name"
+
+    (
+        cat > "$cc_wrapper.tmp" <<EOF
+#!/bin/bash
+exec '$PREFIX/bin/distcc' '$cc_name' "\$@"
+EOF
+        chmod 755 "$cc_wrapper.tmp"
+        mv "$cc_wrapper.tmp" "$cc_wrapper"
+    ) || exit 1
+done

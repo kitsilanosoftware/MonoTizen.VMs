@@ -19,4 +19,4 @@
 
 set -e
 
-tools/tar-in.sh "$1" "$2" tmp/mono-tizen-devel-$TIZEN_VM_PROTO.tar
+tools/tar-in.sh "$1" "$2" tmp/distcc.tar

@@ -24,6 +24,8 @@ TIZEN_VM__mono_tizen_build_MONO_SOURCES =		\
 TIZEN_VM__mono_tizen_build_RPM_BUILD =			\
 	$(TIZEN_VM__mono_tizen_build_MT)/rpm-build
 
+MONO_TIZEN_BUILD = ../MonoTizen.BuildScripts
+
 $(TMP)/vm-%/mono-tizen-build.setup:			\
 		$(TMP)/vm-%/mono-tizen-devel.setup	\
 		$(TMP)/mono-tizen-build.tar
@@ -32,17 +34,20 @@ $(TMP)/vm-%/mono-tizen-build.setup:			\
 	echo bundles/mono-tizen-build/setup.sh >> $@.tmp
 	mv $@.tmp $@
 
-$(TMP)/mono-tizen-build.tar:			\
+$(TMP)/mono-tizen-build.tar:				\
 		$(TMP)/mono-tizen-build/tar.stamp
 	@mkdir -p $(dir $@)
 	tar cf $@.tmp -C $(TMP)/mono-tizen-build/tar .
 	@mv $@.tmp $@
 
-$(TMP)/mono-tizen-build/tar.stamp:				\
-		bundles/mono-tizen-build/rpmmacros.in
+$(TMP)/mono-tizen-build/tar.stamp:			\
+		bundles/mono-tizen-build/rpmmacros.in	\
+		$(MONO_TIZEN_BUILD)/build-mono.sh
 	@mkdir -p $(dir $@)
 	@rm -rf $(dir $@)tar
 	mkdir -p $(dir $@)tar/$(TIZEN_VM__mono_tizen_build_MONO_SOURCES)
+	(cd $(MONO_TIZEN_BUILD) && git archive --prefix=build/ HEAD) |	\
+		tar xf - -C $(dir $@)tar/$(TIZEN_VM__mono_tizen_build_MT)
 	for D in BUILD BUILDROOT RPMS SOURCES SPECS SRPMS tmp; do \
 		mkdir -p $(dir $@)tar/$(TIZEN_VM__mono_tizen_build_RPM_BUILD)/$$D; \
 	done
