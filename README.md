@@ -132,7 +132,11 @@ Bundles are subdirs in `bundles/`, and currently include:
             mono-tizen/rpm-build/SPECS/mono-core-3.6.1-1.spec
 
     is sufficient to get standard platform RPMs built into
-    `/home/developer/mono-tizen/rpm-build/RPMS/`.
+    `/home/developer/mono-tizen/rpm-build/RPMS/`;
+
+  * `distcc`: Installs the source of the `distcc` distributed
+    compilation framework within the VM, with a build and setup script
+    for the client alongside it.
 
 Note that bundle dependencies are automatically resolved;
 e.g. `mono-tizen-rpm` depends on `mono-tizen-devel`, but using
