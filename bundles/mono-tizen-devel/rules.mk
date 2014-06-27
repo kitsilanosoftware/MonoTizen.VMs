@@ -15,8 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
-	$(wildcard bundles/mono-tizen-devel/files/root/*)
+TIZEN_VM__mono_tizen_devel_SETUP =		\
+	bundles/mono-tizen-devel/files/setup.sh
+
+TIZEN_VM__mono_tizen_devel_PARTS =				\
+	$(wildcard bundles/mono-tizen-devel/files/parts/*.sh)
 
 TIZEN_VM__mono_tizen_devel_RPM_LIST =		\
 	autoconf automake libtool gettext-tools	\
@@ -39,20 +42,20 @@ $(TMP)/mono-tizen-devel-$(PROTO).tar:				\
 
 $(TMP)/mono-tizen-devel-$(PROTO)/tar.stamp:			\
 		$(TMP)/mono-tizen-devel-$(PROTO)/rpms.stamp	\
-		$(TIZEN_VM__mono_tizen_devel_ROOT_FILES)
+		$(TIZEN_VM__mono_tizen_devel_SETUP)		\
+		$(TIZEN_VM__mono_tizen_devel_PARTS)
 	@mkdir -p $(dir $@)
 	@rm -rf $(dir $@)tar
 	mkdir -p $(dir $@)tar/root/rpms/install.d
 	echo $(TIZEN_VM__mono_tizen_devel_RPM_LIST)			 \
 		> $(dir $@)tar/root/rpms/install.d/mono-tizen-devel.list
-	for F in $(notdir $(TIZEN_VM__mono_tizen_devel_ROOT_FILES)); do	\
-		cp bundles/mono-tizen-devel/files/root/$$F		\
-			$(dir $@)tar/root;				\
-	done
+	mkdir -p $(dir $@)tar/root/setup.d
+	cp $(TIZEN_VM__mono_tizen_devel_PARTS) $(dir $@)tar/root/setup.d
+	cp $(TIZEN_VM__mono_tizen_devel_SETUP) $(dir $@)tar/root/setup.sh
 	for F in $(TIZEN_VM__mono_tizen_devel_RPMS); do			\
-		mkdir -p $(dir $@)tar/root/rpms/$$(dirname $$F);	\
+		mkdir -p $(dir $@)tar/root/rpms/pre/$$(dirname $$F);	\
 		ln $(DOWNLOADS)/mono-tizen-devel/$$F			\
-			$(dir $@)tar/root/rpms/$$F;			\
+			$(dir $@)tar/root/rpms/pre/$$F;			\
 	done
 	touch $@
 

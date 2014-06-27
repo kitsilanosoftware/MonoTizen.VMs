@@ -19,7 +19,7 @@
 
 set -e
 
-PRELOAD_DIR=/root/rpms
+PRELOAD_DIR='/root/rpms/pre'
 
 if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
     rpm_flags='-i'
@@ -32,7 +32,7 @@ if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
     rpm $rpm_flags "$PRELOAD_DIR"/*/*.rpm && rm -rf "$PRELOAD_DIR"
 fi
 
-RPMS="$(cat /root/rpms/install.d/*.list | sort -u)"
+RPMS="$(cat /root/rpms/install.d/*.list)"
 
 if test -n "$RPMS"; then
     zypper -n refresh
