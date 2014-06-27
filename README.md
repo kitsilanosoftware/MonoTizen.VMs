@@ -102,15 +102,15 @@ creates a new VM in `data/vms/thux/` with the following files:
 Bundles are subdirs in `bundles/`, and currently include:
 
   * `mono-tizen-devel`: Prepares the VM for MonoTizen development by
-    including (but not pre-installing!) the required RPM packages, and
-    creating an initialization script.
+    including (but not pre-installing!) the required RPM packages in
+    the image, and creating a series of initialization scripts.
 
-    Note that when the VM is first booted, it is necessary to run:
+    Note that when the VM is first booted, it is necessary to run the
+    following simple command:
 
-        $ su -c /root/mono-tizen-devel-install.sh
-        $ su -c /root/mono-tizen-fix-owners.sh
+        $ su -c /root/setup.sh
 
-    before proceeding with development;
+    before proceeding with actual development;
 
   * `mono-tizen-build`: Installs the build scripts from the
     `MonoTizen.BuildScripts` repository within the VM, and prepares
@@ -128,15 +128,38 @@ Bundles are subdirs in `bundles/`, and currently include:
   * `mono-tizen-rpm`: Installs a dist tarball and RPM `.spec` file of
     Mono within the VM, for building full RPMs.  With this,
 
-        $ rpmbuild --nodeps -bb   \
+        $ rpmbuild -bb   \
             mono-tizen/rpm-build/SPECS/mono-core-3.6.1-1.spec
 
     is sufficient to get standard platform RPMs built into
     `/home/developer/mono-tizen/rpm-build/RPMS/`;
 
   * `distcc`: Installs the source of the `distcc` distributed
-    compilation framework within the VM, with a build and setup script
-    for the client alongside it.
+    compilation framework within the VM.  The `distcc` binary is built
+    and configured (once) with:
+
+        $ /home/developer/sources/install-distcc.sh
+
+    The compilation host setup is done via:
+
+        $ vi /home/developer/.distcc/hosts
+
+    and each session must start with:
+
+        $ source /home/developer/sources/setup-distcc.sh
+
+  * `buildbot`: Installs the required infrastructure to run `buildbot`
+    in the VM.  When this bundle is selected, `mono-tizen-devel`'s
+    setup step will take care of building and installing the required
+    Python modules, and of creating a default build slave.  The latter
+    can then be started with the following command:
+
+        $ /usr/local/bin/buildslave start \
+            /home/developer/mono-tizen/buildbot
+
+    It is then a "simple matter" of configuring the master to pull
+    from the repository and to submit a job which uses
+    `mono-tizen-build` to perform compilation and/or testing.
 
 Note that bundle dependencies are automatically resolved;
 e.g. `mono-tizen-rpm` depends on `mono-tizen-devel`, but using
