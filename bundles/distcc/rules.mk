@@ -21,7 +21,8 @@ TIZEN_VM__distcc_TARBALL = \
 TIZEN_VM__distcc_URL = \
 	https://distcc.googlecode.com/files/$(TIZEN_VM__distcc_TARBALL)
 
-TIZEN_VM__distcc_SETUP = \
+TIZEN_VM__distcc_FILES =			\
+	bundles/distcc/files/install-distcc.sh	\
 	bundles/distcc/files/setup-distcc.sh
 
 $(TMP)/vm-$(NAME)/distcc.setup:					\
@@ -40,15 +41,18 @@ $(TMP)/distcc.tar:				\
 
 $(TMP)/distcc/tar.stamp:				\
 		$(TMP)/$(TIZEN_VM__distcc_TARBALL)	\
-		$(TIZEN_VM__distcc_SETUP)
+		$(TIZEN_VM__distcc_FILES)
 	@rm -rf $(dir $@)tar
 	mkdir -p $(dir $@)tar/home/developer/sources
 	tar xjf $(TMP)/$(TIZEN_VM__distcc_TARBALL)	\
 		-C $(dir $@)tar/home/developer/sources
 	cd $(dir $@)tar/home/developer/sources &&	\
 		ln -s distcc-* distcc
-	cp $(TIZEN_VM__distcc_SETUP)			\
-		$(dir $@)tar/home/developer/sources
+	for F in $(TIZEN_VM__distcc_FILES); do			\
+		cp $$F $(dir $@)tar/home/developer/sources;	\
+	done
+	mkdir -p $(dir $@)tar/home/developer/.distcc
+	touch $(dir $@)tar/home/developer/.distcc/hosts
 	touch $@
 
 $(TMP)/$(TIZEN_VM__distcc_TARBALL):

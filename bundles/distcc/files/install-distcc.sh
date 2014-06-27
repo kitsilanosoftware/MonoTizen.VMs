@@ -17,18 +17,37 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-# No set -e in source-able files!
-#set -e
+set -e
 
 PREFIX="$HOME/opt/distcc"
+BASE="$(dirname "$0")"
 
-# Add hosts to ~/.distcc/hosts!
-unset DISTCC_HOSTS
-
-if test -x "$PREFIX/bin/distcc"; then
-    PATH="$PREFIX/bin:$PATH"
-    CC="$PREFIX/bin/gcc"
-    CXX="$PREFIX/bin/g++"
-
-    export CC CXX
+build_arg=
+if test -r /etc/rpm/platform; then
+    build_arg="--build=$(cat /etc/rpm/platform)"
 fi
+
+cd "$HOME/sources/distcc"
+./autogen.sh
+./configure "$build_arg" --prefix="$PREFIX" --disable-Werror
+make distcc
+make install-programs bin_PROGRAMS=distcc
+
+for cc_path in /usr/bin/*gcc* /usr/bin/*g++*; do
+    cc_name="$(basename "$cc_path")"
+    cc_wrapper="$PREFIX/bin/$cc_name"
+
+    (
+        cat > "$cc_wrapper.tmp" <<EOF
+#!/bin/bash
+exec '$PREFIX/bin/distcc' '$cc_name' "\$@"
+EOF
+        chmod 755 "$cc_wrapper.tmp"
+        mv "$cc_wrapper.tmp" "$cc_wrapper"
+    ) || exit 1
+done
+
+echo
+echo 'Installed.  Add the hosts to ~/.distcc/hosts, and source'
+echo "$BASE/setup-distcc.sh before starting the first build."
+echo
