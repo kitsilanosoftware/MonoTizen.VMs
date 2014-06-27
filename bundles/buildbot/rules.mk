@@ -15,6 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
+BUILDBOT_MASTER_HOST =				\
+	MASTER.HOST.NOT.SET
+
+BUILDBOT_MASTER_PASSWORD =
+
 TIZEN_VM__buildbot_PYPI_BASE_URL =		\
 	https://pypi.python.org/packages/source
 
@@ -50,8 +55,10 @@ $(TMP)/buildbot.tar:			\
 	tar cf $@.tmp -C $(TMP)/buildbot/tar .
 	@mv $@.tmp $@
 
-$(TMP)/buildbot/tar.stamp:			\
-		bundles/buildbot/install.sh.in	\
+$(TMP)/buildbot/tar.stamp:					\
+		bundles/buildbot/install.sh.in			\
+		bundles/buildbot/create.env.in			\
+		bundles/buildbot/files/buildbot-create.sh	\
 		$(TIZEN_VM__buildbot_DOWNLOADS)
 	@rm -rf $(dir $@)tar
 	mkdir -p $(dir $@)tar/root/rpms/install.d
@@ -72,6 +79,13 @@ $(TMP)/buildbot/tar.stamp:			\
 	sed < $< > $(dir $@)tar/root/setup.d/25-buildbot-install.sh	\
 		-e 's|@@SUBDIRS@@|$(TIZEN_VM__buildbot_SUBDIRS)|'
 	chmod 755 $(dir $@)tar/root/setup.d/25-buildbot-install.sh
+	mkdir -p $(dir $@)tar/home/developer/mono-tizen
+	sed < bundles/buildbot/create.env.in				 \
+		> $(dir $@)tar/home/developer/.buildbot-create.env	 \
+		-e 's|@@BUILDBOT_MASTER_HOST@@|$(BUILDBOT_MASTER_HOST)|' \
+		-e 's|@@BUILDBOT_MASTER_PASSWORD@@|$(BUILDBOT_MASTER_PASSWORD)|'
+	cp bundles/buildbot/files/buildbot-create.sh		\
+		$(dir $@)tar/root/setup.d/50-buildbot-create.sh
 	touch $@
 
 $(TIZEN_VM__buildbot_DOWNLOADS):
