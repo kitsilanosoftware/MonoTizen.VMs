@@ -18,6 +18,11 @@
 TIZEN_VM__mono_tizen_devel_ROOT_FILES =				\
 	$(wildcard bundles/mono-tizen-devel/files/root/*)
 
+TIZEN_VM__mono_tizen_devel_RPM_LIST =		\
+	autoconf automake libtool gettext-tools	\
+	gcc-c++ kernel-headers make rpm-build	\
+	bison fdupes zlib-devel pkgconfig
+
 -include protos/$(PROTO)/mono-tizen-devel.mk
 
 $(TMP)/vm-%/mono-tizen-devel.setup:			\
@@ -37,7 +42,9 @@ $(TMP)/mono-tizen-devel-$(PROTO)/tar.stamp:			\
 		$(TIZEN_VM__mono_tizen_devel_ROOT_FILES)
 	@mkdir -p $(dir $@)
 	@rm -rf $(dir $@)tar
-	@mkdir -p $(dir $@)tar/root
+	mkdir -p $(dir $@)tar/root/rpms/install.d
+	echo $(TIZEN_VM__mono_tizen_devel_RPM_LIST)			 \
+		> $(dir $@)tar/root/rpms/install.d/mono-tizen-devel.list
 	for F in $(notdir $(TIZEN_VM__mono_tizen_devel_ROOT_FILES)); do	\
 		cp bundles/mono-tizen-devel/files/root/$$F		\
 			$(dir $@)tar/root;				\

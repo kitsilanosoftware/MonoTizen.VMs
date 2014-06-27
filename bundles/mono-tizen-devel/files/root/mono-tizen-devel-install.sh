@@ -32,8 +32,9 @@ if ls "$PRELOAD_DIR"/*/*.rpm > /dev/null 2>&1; then
     rpm $rpm_flags "$PRELOAD_DIR"/*/*.rpm && rm -rf "$PRELOAD_DIR"
 fi
 
-zypper -n refresh
-zypper -n install                               \
-    autoconf automake libtool gettext-tools     \
-    gcc-c++ kernel-headers make rpm-build       \
-    bison fdupes zlib-devel pkgconfig
+RPMS="$(cat /root/rpms/install.d/*.list | sort -u)"
+
+if test -n "$RPMS"; then
+    zypper -n refresh
+    zypper -n install $RPMS
+fi
