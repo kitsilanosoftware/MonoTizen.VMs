@@ -37,6 +37,7 @@ include bundles/mono-tizen-build/rules.mk
 include bundles/mono-tizen-sources/rules.mk
 include bundles/mono-tizen-rpm/rules.mk
 include bundles/distcc/rules.mk
+include bundles/buildbot/rules.mk
 
 MAYBE_SSH_CONFIG = $(if $(VM_SSH_PORT_FWD),$(DATA)/vms/$(NAME)/ssh_config)
 

@@ -55,3 +55,10 @@ TIZEN_VM__mono_tizen_devel_RPMS =			\
 	i686/eglibc-headers-2.13-2.16.i686.rpm		\
 	noarch/autoconf-2.68-1.10.noarch.rpm		\
 	noarch/automake-1.11.1-3.12.noarch.rpm
+
+# KLUDGE: This has nothing to do here; TODO: modularize.
+TIZEN_VM__mono_tizen_devel_RPMS +=					\
+	$(if $(filter buildbot,$(VM_BUNDLES)),				\
+		i586/python-devel-2.7.1-2.8.i586.rpm			\
+		noarch/python-setuptools-devel-0.6c11-2.8.noarch.rpm	\
+		noarch/python-setuptools-0.6c11-2.8.noarch.rpm)
