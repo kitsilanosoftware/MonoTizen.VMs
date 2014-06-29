@@ -38,7 +38,7 @@ for cc_path in /usr/bin/*gcc* /usr/bin/*g++*; do
 
     (
         cd "$PREFIX/bin"
-        ln -s "$cc_path" "$cc_name"
+        ln -s 'distcc' "$cc_name"
     ) || exit 1
 done
 
