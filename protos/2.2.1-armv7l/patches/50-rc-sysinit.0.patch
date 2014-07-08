@@ -1,0 +1,18 @@
+--- etc.orig/rc.d/rc.sysinit	2013-03-15 17:02:59.000000000 +0100
++++ etc/rc.d/rc.sysinit	2014-06-24 15:38:57.941018977 +0200
+@@ -24,13 +24,13 @@
+ mknod /dev/mmcblk0p6 b 179 6
+ 
+ # mount opt partition
+-mount -t ext4 /dev/mmcblk0p6 /opt
++#mount -t ext4 /dev/mmcblk0p6 /opt
+ 
+ echo -e "[${_G}udev start${C_}]"
+ /sbin/udevd --daemon
+ /sbin/udevadm trigger
+ 
+-if [ ! -e /opt/etc/.firstboot ]; then
++if false; then
+ 	umount /opt
+ # find rootfs partition for resizing and remounting
+ 	for param in `cat /proc/cmdline`; do

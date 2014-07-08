@@ -1,0 +1,23 @@
+diff -ru etc.orig/zypp/repos.d/Tizen-main.repo etc/zypp/repos.d/Tizen-main.repo
+--- etc.orig/zypp/repos.d/Tizen-main.repo	2013-11-08 08:44:33.000000000 +0100
++++ etc/zypp/repos.d/Tizen-main.repo	2014-07-08 22:48:49.767237846 +0200
+@@ -1,7 +1,7 @@
+ [Tizen-main]
+ name=Tizen-main
+ failovermethod=priority
+-baseurl=file:///srv/snapshots//2.2/common/tizen-2.2_20131107.3/repos/tizen-main/armv7l/packages/
++baseurl=http://download.tizen.org/releases/2.2.1/tizen-2.2_20131107.3/repos/tizen-main/armv7l/packages/
+ gpgcheck=0
+ enabled=1
+ 
+--- /dev/null   2014-06-15 16:20:45.613603000 +0200
++++ etc/zypp/repos.d/Tizen-base.repo    2014-07-08 22:49:29.409917425 +0200
+@@ -0,0 +1,7 @@
++[Tizen-base]
++name=Tizen-base
++failovermethod=priority
++baseurl=http://download.tizen.org/releases/2.2.1/tizen-2.2_20131107.3/repos/tizen-base/armv7l/packages/
++gpgcheck=0
++enabled=1
++
+
