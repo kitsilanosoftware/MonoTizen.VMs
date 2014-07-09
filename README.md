@@ -27,27 +27,28 @@ along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
 Builds a MonoTizen VM named `<vm-name>` based on prototype `<proto>`.
 
-There are currently two "protos" available:
+The following "protos" are available:
 
-| Name       | Arch   | Kernel           | Base image                 |
-|------------|--------|------------------|----------------------------|
-| 2.2-armv7l | armv7l | 3.2.0-4-vexpress | tizen-2.2_20130719.3_RD-PQ |
-| 2.2-i686   | i686   | Tizen 2.2 SDK    | Tizen 2.2 SDK[^sdk-img]    |
+| Name         | Arch   | Kernel           | Base image                 |
+|--------------|--------|------------------|----------------------------|
+| 2.2-armv7l   | armv7l | 3.2.0-4-vexpress | tizen-2.2_20130719.3_RD-PQ |
+| 2.2.1-armv7l | armv7l | 3.2.0-4-vexpress | tizen-2.2_20131107.3_RD-PQ |
+| 2.2.1-i686   | i686   | Tizen 2.2.1 SDK  | Tizen 2.2.1 SDK[^1]        |
 
 Prototypes are subdirs in `protos/`, and consist in a main `rules.mk`
 file as well as a number of patches, scripts, etc. describing how to
 alter the upstream-provided files to turn them into a VM image.
 
-[^sdk-img]: Note that `build-vm.sh` is currently unable to
-automatically download the Tizen 2.2 SDK images; the standard SDK
-installer has to be used, and the files `bzImage.x86` and
-`emulimg-2.2.x86` copied/linked into `data/downloads/2.2-i686/`.
+[^1]: Note that `build-vm.sh` is currently unable to automatically
+download the Tizen SDK images; the standard SDK installer has to be
+used, and the files `bzImage.x86` and `emulimg-2.2.x86` copied/linked
+into `data/downloads/2.2.1-i686/`.
 
 ### Example
 
 Here is an example invocation:
 
-    $ ./build-vm.sh 2.2-i686 thux  \
+    $ ./build-vm.sh 2.2.1-i686 thux  \
         VM_SSH_PORT_FWD=2227       \
         VM_BUNDLES=mono-tizen-rpm
 

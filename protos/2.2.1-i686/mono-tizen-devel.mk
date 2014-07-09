@@ -15,11 +15,11 @@
 # You should have received a copy of the GNU General Public License
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
-TIZEN_VM__2_2_i686_PREFIX_URL =					\
+TIZEN_VM__2_2_1_i686_PREFIX_URL =					\
 	http://download.tizen.org/releases/2.2.1/tizen-2.2_20131107.3
 
-TIZEN_VM__mono_tizen_devel_REPO_URL =					\
-	$(TIZEN_VM__2_2_i686_PREFIX_URL)/repos/tizen-base/ia32/packages
+TIZEN_VM__mono_tizen_devel_REPO_URL =					  \
+	$(TIZEN_VM__2_2_1_i686_PREFIX_URL)/repos/tizen-base/ia32/packages
 
 TIZEN_VM__mono_tizen_devel_RPMS =			\
 	i586/binutils-2.22-1.10.i586.rpm		\
