@@ -1,0 +1,12 @@
+diff -ru etc.orig/connman/main.conf etc/connman/main.conf
+--- etc.orig/connman/main.conf	2014-06-23 20:04:48.000000000 +0200
++++ etc/connman/main.conf	2014-07-11 00:31:40.606031944 +0200
+@@ -33,7 +33,7 @@
+ # to the list of nameservers given by the service. The
+ # nameserver entries must be in numeric format, host
+ # names are ignored.
+-# FallbackNameservers =
++FallbackNameservers = 10.0.0.3
+ 
+ # List of technologies that are marked autoconnectable
+ # by default, separated by commas ",". The default value

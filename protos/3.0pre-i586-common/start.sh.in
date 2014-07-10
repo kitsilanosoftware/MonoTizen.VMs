@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -e
+
+BASE="$(dirname "$0")"
+VM_SSH_PORT_FWD='@@VM_SSH_PORT_FWD@@'
+
+ssh_fwd_args=''
+if test -n "$VM_SSH_PORT_FWD"; then
+    ssh_fwd_args="-net user,hostfwd=tcp::${VM_SSH_PORT_FWD}-:22"
+fi
+
+BOOT="$BASE/../../images/3.0pre-i586-common"
+
+exec qemu-system-i386 -m 1G -enable-kvm                         \
+    -kernel "$BOOT/vmlinuz-3.14.4-7.1-x86-common"               \
+    -hda "$BASE/disk.qcow2"                                     \
+    -net nic $ssh_fwd_args                                      \
+    -append 'root=/dev/sda systemd.unit=multi-user.target'

@@ -1,0 +1,31 @@
+diff -ru etc.orig/passwd etc/passwd
+--- etc.orig/passwd	2014-07-04 17:20:01.000000000 +0200
++++ etc/passwd	2014-07-11 00:08:55.036000000 +0200
+@@ -15,7 +15,7 @@
+ avahi:x:114:114:avahi:/run/avahi-daemon:/sbin/nologin
+ buxton:x:555:555:buxton user:/var/lib/empty:/sbin/nologin
+ app:x:5000:100:System based user:/home/app:/bin/sh
+-developer:x:5100:5100:developer with SDK:/home/developer:/bin/false
++developer:x:5100:5100:developer with SDK:/home/developer:/bin/sh
+ testuser:x:5101:5101:test user:/var/lib/empty:/bin/sh
+ pulse:x:6507:6507:PulseAudio daemon:/var/run/pulse:/bin/false
+ system:x:1000:1000:SPLUSA:/var/lib/empty:/bin/sh
+Nur in etc/: resolv.conf.
+diff -ru etc.orig/shadow etc/shadow
+--- etc.orig/shadow	2014-07-04 17:20:01.000000000 +0200
++++ etc/shadow	2014-07-11 00:12:54.208000000 +0200
+@@ -1,4 +1,4 @@
+-root:QMop/1GCw9a0I:16255:0:99999:7:::
++root::16255:0:99999:7:::
+ bin:*:16247:0:99999:7:::
+ daemon:*:16247:0:99999:7:::
+ lp:*:16247:0:99999:7:::
+@@ -15,7 +15,7 @@
+ avahi:*:16247:0:99999:7:::
+ buxton:*:16247:0:99999:7:::
+ app:*:16247:0:99999:7:::
+-developer:*:16247:0:99999:7:::
++developer::16247:0:99999:7:::
+ testuser:*:16247:0:99999:7:::
+ pulse:*:16247:0:99999:7:::
+ system:*:16247:0:99999:7:::

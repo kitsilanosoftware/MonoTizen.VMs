@@ -1,0 +1,11 @@
+diff -ru etc.orig/ssh/sshd_config etc/ssh/sshd_config
+--- etc.orig/ssh/sshd_config	2014-06-23 22:14:26.000000000 +0200
++++ etc/ssh/sshd_config	2014-07-11 00:08:36.300000000 +0200
+@@ -65,8 +65,8 @@
+ #IgnoreRhosts yes
+ 
+ # To disable tunneled clear text passwords, change to no here!
+-PasswordAuthentication no
+-#PermitEmptyPasswords no
++PasswordAuthentication yes
++PermitEmptyPasswords yes

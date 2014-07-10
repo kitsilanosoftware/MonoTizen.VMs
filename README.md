@@ -29,11 +29,12 @@ Builds a MonoTizen VM named `<vm-name>` based on prototype `<proto>`.
 
 The following "protos" are available:
 
-| Name         | Arch   | Kernel           | Base image                 |
-|--------------|--------|------------------|----------------------------|
-| 2.2-armv7l   | armv7l | 3.2.0-4-vexpress | tizen-2.2_20130719.3_RD-PQ |
-| 2.2.1-armv7l | armv7l | 3.2.0-4-vexpress | tizen-2.2_20131107.3_RD-PQ |
-| 2.2.1-i686   | i686   | Tizen 2.2.1 SDK  | Tizen 2.2.1 SDK[^1]        |
+| Name          | Arch   | Kernel               | Base image                 |
+|---------------|--------|----------------------|----------------------------|
+| 2.2-armv7l    | armv7l | 3.2.0-4-vexpress     | tizen-2.2_20130719.3_RD-PQ |
+| 2.2.1-armv7l  | armv7l | 3.2.0-4-vexpress     | tizen-2.2_20131107.3_RD-PQ |
+| 2.2.1-i686    | i686   | Tizen 2.2.1 SDK      | Tizen 2.2.1 SDK[^1]        |
+| 3.0pre-i586-c | i586   | Tizen 3.0 Common pre | 20140704.1                 |
 
 Prototypes are subdirs in `protos/`, and consist in a main `rules.mk`
 file as well as a number of patches, scripts, etc. describing how to
