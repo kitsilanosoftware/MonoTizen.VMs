@@ -16,7 +16,7 @@
 # along with MonoTizen.  If not, see <http://www.gnu.org/licenses/>.
 
 MONO_TIZEN_CLONE = ../mono
-MONO_TIZEN_VERSION = 3.6.1
+MONO_TIZEN_VERSION = 3.6.0
 
 $(TMP)/vm-$(NAME)/mono-tizen-rpm.setup:				\
 		$(TMP)/vm-$(NAME)/mono-tizen-build.setup	\
